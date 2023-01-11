@@ -1,3 +1,5 @@
+
+
 from typing import Dict
 import numpy as np
 from omegaconf import DictConfig, ListConfig
@@ -14,7 +16,6 @@ from datasets import load_dataset
 def make_multi_folder_data(paths, caption_files=None, **kwargs):
     """Make a concat dataset from multiple folders
     Don't suport captions yet
-
     If paths is a list, that's ok, if it's a Dict interpret it as:
     k=folder v=n_times to repeat that
     """
@@ -131,7 +132,7 @@ def hf_dataset(
     ):
     """Make huggingface dataset with appropriate list of transforms applied
     """
-    ds = load_dataset(name, split=split)
+    ds = load_dataset(name, split=split, use_auth_token=True).cast_column("image", Image(decode=True))
     image_transforms = [instantiate_from_config(tt) for tt in image_transforms]
     image_transforms.extend([transforms.ToTensor(),
                                 transforms.Lambda(lambda x: rearrange(x * 2. - 1., 'c h w -> h w c'))])
