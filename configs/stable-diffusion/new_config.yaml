@@ -92,9 +92,9 @@ data:
       target: ldm.data.simple.TextOnly
       params:
         captions:
-        - "A pokemon with green eyes, large wings, and a hat"
-        - "A cute bunny rabbit"
-        - "Yoda"
+        - "a model in a tan shirt and jeans"
+        - "a model in a light blue short sleeve t shirt"
+        - "a plus size woman wearing boot cut jeans"
         - "An epic landscape photo of a mountain"
         output_size: 512
         n_gpus: 2 # small hack to sure we see all our samples
