@@ -8,6 +8,7 @@ from torch.utils.data import Dataset
 from pathlib import Path
 import json
 from PIL import Image
+from datasets import Image as dImage
 from torchvision import transforms
 from einops import rearrange
 from ldm.util import instantiate_from_config
@@ -132,7 +133,7 @@ def hf_dataset(
     ):
     """Make huggingface dataset with appropriate list of transforms applied
     """
-    ds = load_dataset(name, split=split, use_auth_token=True).cast_column("image", Image(decode=True))
+    ds = load_dataset(name, split=split, use_auth_token=True).cast_column("image", dImage(decode=True))
     image_transforms = [instantiate_from_config(tt) for tt in image_transforms]
     image_transforms.extend([transforms.ToTensor(),
                                 transforms.Lambda(lambda x: rearrange(x * 2. - 1., 'c h w -> h w c'))])
